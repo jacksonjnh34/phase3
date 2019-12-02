@@ -5,9 +5,10 @@
 using namespace std;
 
 int main(){
+	
 	string A[10] = {"A","B","C","D","E","F","H","I","J","K"};
 	int B[10] = {10,9,8,7,6,5,4,3,2,1};
-
+	
 	Heap<int,string> T1, T2(B,A,10);
 	
 	T2.printKey();
@@ -27,7 +28,6 @@ int main(){
 	T1.printKey();
 	//Should output 2 3 5 4 8 9 6 10 7
 	
-	/*
 	BHeap<string,int> X(A,B,10), Y;
 
 	X.printKey();
@@ -38,10 +38,10 @@ int main(){
 	//B3
 	//A E H I F C D B
 
-	cout << X.extractMin() << endl;
+	//cout << X.extractMin() << endl;
 	//Should output A
 	
-	X.printKey():
+	//X.printKey():
 	//Should output
 	//B0
 	//B
@@ -54,7 +54,7 @@ int main(){
 	Y.insert("G", 102);
 	Y.insert("N", 103);
 	Y.insert("L", 104);
-	
+	//
 	Y.printKey();
 	//Should output
 	//B0
@@ -63,11 +63,11 @@ int main(){
 	//B2
 	//G M O N
 	
-	Y.merge(X);
-	cout << Y.peakKey() << endl;
+	//Y.merge(X);
+	//cout << Y.peakKey() << endl;
 	//Should output B
 	
-	Y.printKey();
+	//Y.printKey();
 	//Should output
 	//B1
 	//B L
@@ -77,6 +77,6 @@ int main(){
 	//
 	//B3
 	//C E H I F J K D
-			*/
+			
 	return 0;
 }

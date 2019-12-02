@@ -42,8 +42,9 @@ public:
 
 	~Heap()
 	{
-		this->key_arr.~CircularDynamicArray<keytype>();
-		this->val_arr.~CircularDynamicArray<valuetype>();
+		//NOTE THERE IS A SEG FAULT HERE UGH
+		//this->key_arr.~CircularDynamicArray<keytype>();
+		//this->val_arr.~CircularDynamicArray<valuetype>();
 	}
 
 	void insert(keytype k, valuetype v)
@@ -96,9 +97,7 @@ public:
 	}
 
 	void printKey()
-	{
-		cout << "Starting print key" << endl;
-		
+	{		
 		for(int i = 0; i < heap_size; i++)
 		{
 			cout << this->key_arr[i] << " ";
