@@ -1,2 +1,2 @@
 all:
-	g++ 201Main.cpp -g -o phase3
+	g++ 201Main.cpp -o phase3

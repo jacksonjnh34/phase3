@@ -138,7 +138,12 @@ public:
    			cout << "B" << (*iter)->degree << endl;
    		    printNodes(*iter);
    		    iter++;
-   		    cout << endl << endl;
+   		    
+   		    if(iter != this->heaps.end())
+   		    {
+   		    	cout << endl;
+   		    }
+   		    cout << endl;
    		}
 	}
 
