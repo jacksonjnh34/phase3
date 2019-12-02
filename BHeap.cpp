@@ -1,7 +1,5 @@
 using namespace std;
 
-
-
 template<class keytype, class valuetype>
 class BHeap
 {
@@ -49,21 +47,56 @@ public:
 	modifiying the heap.
 	O(lg n)
 	*/
-	keytype peakKey();
+	keytype peakKey()
+	{
+		Node* temp_node = getMin(this->heaps);
+
+		return temp_node->key;
+	}
 
 	/*
 	Returns the value associated with the minimum
 	key in the heap without modifiying the heap.
 	O(lg n)
 	*/
-	valuetype peakValue();
+	valuetype peakValue()
+	{
+		Node* temp_node = getMin(this->heaps);
+
+		return temp_node->val;
+	}
 
 	/*
 	Removes the minimum key in the heap and
 	returns the key.
 	O(lg n)
 	*/
-	keytype extractMin();
+	keytype extractMin()
+	{
+		list<Node*> temp, single_no_min;
+		Node* temp_node = getMin(this->heaps);
+
+		keytype min = temp_node->key;
+
+		typename list<Node*>::iterator iter = this->heaps.begin();
+
+		while(iter != this->heaps.end())
+		{
+			if(*iter != temp_node)
+			{
+				temp.push_back(*iter);
+			}
+
+			iter++;
+		}
+
+		single_no_min = removeMinTree(temp_node);
+		temp = combineBHeaps(temp, single_no_min);
+
+		this->heaps = fix_up(temp);
+
+		return min;
+	}
 
 	//Inserts the key k and value v pair into the heap. O(lg n)
 	void insert(keytype k, valuetype v)
@@ -73,7 +106,7 @@ public:
 		list<Node*> new_node_heap;
 		new_node_heap.push_back(new_node);
 
-		this->heaps = unionBionomialHeap(this->heaps, new_node_heap);
+		this->heaps = combineBHeaps(this->heaps, new_node_heap);
 
 		this->heaps = fix_up(this->heaps);
 	}
@@ -81,7 +114,7 @@ public:
 	//Merges the H2 into the current heap O(lg n)
 	void merge(BHeap<keytype, valuetype> &H2)
 	{
-		this->heaps = unionBionomialHeap(this->heaps, H2.heaps);
+		this->heaps = combineBHeaps(this->heaps, H2.heaps);
 
 		this->heaps = fix_up(this->heaps);
 
@@ -123,6 +156,23 @@ private:
 		return init;
 	}
 
+	Node* getMin(list<Node*> heap)
+	{
+	    typename list<Node*>::iterator iter = heap.begin();
+	    Node *temp = *iter;
+
+	    while (iter != heap.end())
+	    {
+	        if ((*iter)->key < temp->key)
+	        {
+	            temp = *iter;
+	        }
+	        iter++;
+	    }
+
+	    return temp;
+	}
+	
 	void printNodes(Node *my_node)
 	{
 		//NULL acts as a false value so this is the easiest way to run a loop
@@ -133,9 +183,27 @@ private:
 	        printNodes(my_node->child);
 	        my_node = my_node->sibling;
 	    } 
-	} 
+	}
 
-	list<Node*> unionBionomialHeap(list<Node*> l1, list<Node*> l2) 
+	list<Node*> removeMinTree(Node *tree)
+	{
+	    list<Node*> heap;
+	    Node *init = tree->child;
+	    Node *temp;
+	 
+	    // making a binomial heap from Binomial Tree
+	    while (init)
+	    {
+	        temp = init;
+	        init = init->sibling;
+	        temp->sibling = NULL;
+	        heap.push_front(temp);
+	    }
+
+	    return heap;
+	}
+
+	list<Node*> combineBHeaps(list<Node*> l1, list<Node*> l2) 
 	{ 
     	list<Node*> new_heap; 
     	typename list<Node*>::iterator internal_iter = l1.begin(); 
@@ -192,7 +260,7 @@ private:
 		list<Node*> new_heap;
 		new_heap.push_back(root);
 
-		unionBionomialHeap(this->heaps, new_heap);
+		combineBHeaps(this->heaps, new_heap);
 
 		this->heaps = fix_up(this->heaps);
 	}

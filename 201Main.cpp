@@ -38,10 +38,10 @@ int main(){
 	//B3
 	//A E H I F C D B
 
-	//cout << X.extractMin() << endl;
+	cout << X.extractMin() << endl;
 	//Should output A
 	
-	//X.printKey():
+	X.printKey();
 	//Should output
 	//B0
 	//B
@@ -63,11 +63,11 @@ int main(){
 	//B2
 	//G M O N
 	
-	//Y.merge(X);
-	//cout << Y.peakKey() << endl;
+	Y.merge(X);
+	cout << Y.peakKey() << endl;
 	//Should output B
 	
-	//Y.printKey();
+	Y.printKey();
 	//Should output
 	//B1
 	//B L
